@@ -89,7 +89,6 @@ HAVING		count(A.QuestionID) = (
 															GROUP BY		P.PositionID) 								AS SONGUOI)
 ;
 
--- Question 11 :
 -- Question 12 :
 SELECT 			Q.CreatorID AS 'ID NGUOI TAO CAU HOI' , Q.QuestionID AS 'ID CAU HOI', Q.Content AS 'NOI DUNG CAU HOI' , CQ.CategoryName AS 'CHU DE CAU HOI', TQ.TypeName AS 'LOAI CAU HOI', A.Content AS 'NOI DUNG CAU TRA LOI'
 FROM			Question Q
@@ -119,18 +118,70 @@ LEFT JOIN 	Answer a ON q.QuestionID = a.QuestionID
 WHERE 		a.AnswerID IS NULL
 ;
 
+-- Question 11 :
+SELECT 		d.DepartmentID, d.DepartmentName, p.positionID, p.PositionName , count(a.AccountID)
+FROM 		department d
+CROSS JOIN 	Position p
+LEFT JOIN 	`Account` a ON d.DepartmentID = a.DepartmentID AND p.PositionID = a.PositionID
+GROUP BY	P.positionID , D.DepartmentID
+ ;
+ 
+ -- Question : Thong ke moi phong ban, moi group co bao nhieu nhan vien
+SELECT			d.departmentID, g.GroupID, G.GroupName, COUNT(GA.AccountID)
+FROM 			Department d
+CROSS JOIN 		`Group` g
+JOIN 			`GroupAccount` ga ON g.GroupID = ga.GroupID 
+JOIN			`Account` a ON a.departmentID = d.departmentID
+GROUP BY		G.GroupID , d.departmentID
+;
+ 
+-- EXERCISE 2 : UNION
 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
+-- QUESTION 17:
+-- a, Nhom 1
+SELECT		A.AccountID, GA.GroupID, A.Username, A.FullName
+FROM 		`GroupAccount` GA
+INNER JOIN 	`Account`A ON GA.AccountID = A.AccountID
+WHERE 		GroupID = 1
+;
+-- b, Nhom 2
+SELECT		*
+FROM		`GroupAccount` GA
+INNER JOIN 	`Account`A ON GA.AccountID = A.AccountID
+WHERE 		GroupID = 3
+;
+-- c, gop 2 nhom
+SELECT		A.AccountID, GA.GroupID, A.Username, A.FullName
+FROM 		`GroupAccount` GA
+INNER JOIN 	`Account`A ON GA.AccountID = A.AccountID
+WHERE 		GroupID = 1
+UNION 
+SELECT		A.AccountID, GA.GroupID, A.Username, A.FullName
+FROM		`GroupAccount` GA
+INNER JOIN 	`Account`A ON GA.AccountID = A.AccountID
+WHERE 		GroupID = 3
+;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  
  
  
