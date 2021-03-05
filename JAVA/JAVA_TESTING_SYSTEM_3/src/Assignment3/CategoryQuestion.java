@@ -1,4 +1,4 @@
-package exercise1;
+package Assignment3;
 
 public class CategoryQuestion {
 	
